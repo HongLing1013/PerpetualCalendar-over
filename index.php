@@ -70,49 +70,30 @@
             // 判斷1月跟12月 避免跳到0月跟13月
             /* 這個switch...case如果放到if...else外的話
                會造成找不到陣列而出錯*/
-            switch ($_GET['month']) {
-                case 1: //1月的話
-                    $prevMonth = 12; //1月的上一個月是12月份 所以直接帶入12
-                    $prevYear = $year - 1; //1月的上一個月是去年 所以年份要-1
-                    $nextMonth = $month + 1;
-                    $nextYear = $year;
-                    break;
-                case 12: //12月的話
-                    $prevMonth = $month - 1;
-                    $prevYear = $year;
-                    $nextMonth = 1; //12月的下一個月是1月 所以直接帶入1
-                    $nextYear = $year + 1; //12月的下一個月是明年 所以要+1
-                    break;
-                default: //如果是在2-11月的話 在這裡算好需要的值 帶到下面上一個月下一個月的連結去
-                    $prevMonth = $month - 1;
-                    $prevYear = $year;
-                    $nextMonth = $month + 1;
-                    $nextYear = $year;
-            }
-        } else {
-            $month = date('n'); //取得當前月
+            } else {
+                $month = date('n'); //取得當前月
             $year = date("Y");//取得當前年
-            switch ($month) {
-                case 1: //1月的話
-                    $prevMonth = 12; //1月的上一個月是12月份 所以直接帶入12
-                    $prevYear = $year - 1; //1月的上一個月是去年 所以年份要-1
-                    $nextMonth = $month + 1;
-                    $nextYear = $year;
-                    break;
-                case 12: //12月的話
-                    $prevMonth = $month - 1;
-                    $prevYear = $year;
-                    $nextMonth = 1; //12月的下一個月是1月 所以直接帶入1
-                    $nextYear = $year + 1; //12月的下一個月是明年 所以要+1
-                    break;
-                default: //如果是在2-11月的話 在這裡算好需要的值 帶到下面上一個月下一個月的連結去
-                    $prevMonth = $month - 1;
-                    $prevYear = $year;
-                    $nextMonth = $month + 1;
-                    $nextYear = $year;
-            }
         }
 
+        switch ($month) {
+            case 1: //1月的話
+                $prevMonth = 12; //1月的上一個月是12月份 所以直接帶入12
+                $prevYear = $year - 1; //1月的上一個月是去年 所以年份要-1
+                $nextMonth = $month + 1;
+                $nextYear = $year;
+                break;
+                case 12: //12月的話
+                    $prevMonth = $month - 1;
+                    $prevYear = $year;
+                    $nextMonth = 1; //12月的下一個月是1月 所以直接帶入1
+                    $nextYear = $year + 1; //12月的下一個月是明年 所以要+1
+                    break;
+                    default: //如果是在2-11月的話 在這裡算好需要的值 帶到下面上一個月下一個月的連結去
+                    $prevMonth = $month - 1;
+                    $prevYear = $year;
+                    $nextMonth = $month + 1;
+                    $nextYear = $year;
+                }   
 
         // 將取得的參數顯示出來
         echo "要顯示的月份為：" . $year . "年" . $month . "月";
