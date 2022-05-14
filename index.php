@@ -64,7 +64,7 @@
         <h1>萬年曆</h1>
         <!-- 取得月份的參數 -->
         <?php
-        if (isset($_GET['month'])) {//如果這個陣列內容為空
+        if (isset($_GET['month'])) {//isset判斷這個東西裡面有沒有設 0也是有設定
             $month = $_GET['month'];
             $year = $_GET['year'];
             // 判斷1月跟12月 避免跳到0月跟13月
@@ -92,6 +92,25 @@
         } else {
             $month = date('n'); //取得當前月
             $year = date("Y");//取得當前年
+            switch ($month) {
+                case 1: //1月的話
+                    $prevMonth = 12; //1月的上一個月是12月份 所以直接帶入12
+                    $prevYear = $year - 1; //1月的上一個月是去年 所以年份要-1
+                    $nextMonth = $month + 1;
+                    $nextYear = $year;
+                    break;
+                case 12: //12月的話
+                    $prevMonth = $month - 1;
+                    $prevYear = $year;
+                    $nextMonth = 1; //12月的下一個月是1月 所以直接帶入1
+                    $nextYear = $year + 1; //12月的下一個月是明年 所以要+1
+                    break;
+                default: //如果是在2-11月的話 在這裡算好需要的值 帶到下面上一個月下一個月的連結去
+                    $prevMonth = $month - 1;
+                    $prevYear = $year;
+                    $nextMonth = $month + 1;
+                    $nextYear = $year;
+            }
         }
 
 
@@ -102,11 +121,11 @@
         <!-- 控制切換月份的按鈕 -->
         <div class="nav">
             <span>
-                <a href="index.php?year=<?= $prevyear; ?>&month=<?= $prevmonth; ?>">上一個月</a>
+                <a href="index.php?year=<?= $prevYear; ?>&month=<?= $prevMonth; ?>">上一個月</a>
             </span>
             <span><?= $year . '年' . $month . '月'; ?></span>
             <span>
-                <a href="index.php?year=<?= $nextyear; ?>&month=<?= $nextmonth; ?>">下一個月</a>
+                <a href="index.php?year=<?= $nextYear; ?>&month=<?= $nextMonth; ?>">下一個月</a>
             </span>
         </div>
 
