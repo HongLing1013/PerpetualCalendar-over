@@ -114,25 +114,26 @@
 
         <?php
         // 設定各項參數
-        $firstDay = $year . "-" . $month . "-1";
-        $firstWeekday = date("w", strtotime($firstDay));
-        $monthDays = date("t", strtotime($firstDay));
-        $lastDay = $year . "-" . $month . "-" . $monthDays;
-        $today = date("Y-m-d");
-        $lastWeekday = date("w", strtotime($lastDay));
+        $firstDay = $year . "-" . $month . "-1";//第一天日期
+        $firstWeekday = date("w", strtotime($firstDay));//一號是星期幾
+        $monthDays = date("t", strtotime($firstDay));//算這個月的總天數
+        $lastDay = $year . "-" . $month . "-" . $monthDays;//算這個月的最後一天日期
+        $today = date("Y-m-d");//得到今天日期
+        $lastWeekday = date("w", strtotime($lastDay));//最後一天是星期幾
         $dateHouse = [];
 
         for ($i = 0; $i < $firstWeekday; $i++) {
-            $dateHouse[] = "";
+            $dateHouse[] = "";//一號以前印空白
         }
 
         for ($i = 0; $i < $monthDays; $i++) {
             $date = date("Y-m-d", strtotime("+$i days", strtotime($firstDay)));
+            //日期函數的年月日 換算成字串 字串印出來以後要+1
             $dateHouse[] = $date;
         }
 
         for ($i = 0; $i < (6 - $lastWeekday); $i++) {
-            $dateHouse[] = "";
+            $dateHouse[] = "";//最後一天以後印空白
         }
 
         ?>
@@ -148,9 +149,9 @@
             <?php
             foreach ($dateHouse as $k => $day) {
                 $hol = ($k % 7 == 0 || $k % 7 == 6) ? 'weekend' : ""; //判定是否為假日
-
+                
                 if (!empty($day)) {
-                    $dayFormat = date("j", strtotime($day));
+                    $dayFormat = date("j", strtotime($day));//只想顯示"日"
                     echo "<div class='{$hol}'>{$dayFormat}</div>";
                 } else {
                     echo "<div class='{$hol}'></div>";
